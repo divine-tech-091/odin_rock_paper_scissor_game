@@ -1,29 +1,74 @@
-let isRandom = Math.random();
+// playRound
 let humanScore = 0;
 let computerScore = 0;
 
-// Computer choice
-let getComputerChoice = function () {
-	if (isRandom >= 0 && isRandom < 1 / 2) {
-		console.log('Rock');
-	} else if (isRandom >= 1 / 2 && isRandom < 2 / 3) {
-		console.log('Paper');
-	} else if (isRandom >= 2 / 3 && isRandom < 1) {
-		console.log('Scissor');
-	}
-};
-getComputerChoice();
+function playRound() {
+	for (let round = 1; round <= 5; round++) {
+		//
+		let isChoice = ['rock', 'paper', 'scissors'];
+		let random = Math.floor(Math.random() * isChoice.length);
+		let computerSelection = isChoice[random];
 
-// Human Choice
-let getHumanChoice = function () {
-	let UserInput = prompt('Input your choice');
+		let humanSelection = prompt('Input your choice');
+		if (
+			humanSelection === 'rock' ||
+			humanSelection === 'Rock' ||
+			humanSelection === 'ROCK'
+		) {
+			humanSelection = 'rock';
+		}
 
-	if (UserInput === 'rock') {
-		console.log('Rock beats scissor');
-	} else if (UserInput === 'paper') {
-		console.log('Scissor beats paper');
-	} else if (UserInput === 'scissor') {
-		console.log('Paper beats rock');
+		if (
+			humanSelection === 'paper' ||
+			humanSelection === 'Paper' ||
+			humanSelection === 'PAPER'
+		) {
+			humanSelection = 'paper';
+		}
+
+		if (
+			humanSelection === 'scissors' ||
+			humanSelection === 'Scissors' ||
+			humanSelection === 'SCISSORS'
+		) {
+			humanSelection = 'scissors';
+		}
+
+		console.log(
+			`Round ${round} You choose ${humanSelection}, computer choose ${computerSelection}`,
+		);
+
+		if (humanSelection === computerSelection) {
+			console.log(`It's a tie!`);
+		} else if (
+			(humanSelection === 'rock' && computerSelection === 'scissors') ||
+			(humanSelection === 'paper' && computerSelection === 'rock') ||
+			(humanSelection === 'scissors' && computerSelection === 'paper')
+		) {
+			console.log(
+				`You win! this round. ${humanSelection} beats ${computerSelection}`,
+			);
+			humanScore++;
+		} else {
+			console.log(
+				`Computer win! this round. ${computerSelection}  beats ${humanSelection}`,
+			);
+			computerScore++;
+		}
+
+		console.log(
+			`human score : ${humanScore} | computer score : ${computerScore}`,
+		);
+		if (humanScore > computerScore) {
+			console.log(`Congratulations! You are overall winner`);
+		} else if (computerScore > humanScore) {
+			console.log(`computer wins the game, try hard next time`);
+		} else {
+			console.log(`Draw game`);
+		}
 	}
-};
-getHumanChoice();
+}
+playRound();
+
+// function playGame(play) {}
+// playGame();
