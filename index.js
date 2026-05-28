@@ -9,7 +9,10 @@ function playRound() {
 		let random = Math.floor(Math.random() * isChoice.length);
 		let computerSelection = isChoice[random];
 
-		let humanSelection = prompt('Input your choice');
+		let humanSelection = prompt(
+			'Input your choice',
+			'Enter! rock, paper or scissors',
+		);
 		if (
 			humanSelection === 'rock' ||
 			humanSelection === 'Rock' ||
