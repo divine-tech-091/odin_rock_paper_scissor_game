@@ -17,7 +17,7 @@ const computerTotalScore = document.querySelector('.computerScore');
 const humanTotalScore = document.querySelector('.humanScore');
 const showWinner = document.querySelector('.declareTxt');
 
-showWinner.textContent = 'Start Game';
+showWinner.textContent = 'Start Game!';
 
 function playRound() {
 	rock.addEventListener('click', function (event) {
@@ -93,7 +93,7 @@ function playRound() {
 playRound();
 function calcScore() {
 	if (humanScore > computerScore) {
-		showWinner.textContent = `congrats! You're the overall winner! Your score : ${humanScore} | Computer score : ${computerScore}`;
+		showWinner.textContent = `congrats! You're the overall winner! Your score : ${humanScore}. | Computer score : ${computerScore}. Play next!`;
 		humanScore = 0;
 		computerScore = 0;
 		humanTotalScore.textContent = humanScore;
@@ -101,7 +101,7 @@ function calcScore() {
 		round = 0;
 		return;
 	} else if (computerScore > humanScore) {
-		showWinner.textContent = `computer won! try again next time. Your score : ${humanScore} | Computer score : ${computerScore}`;
+		showWinner.textContent = `computer won! try again next time. Your score : ${humanScore}. | Computer score : ${computerScore}. Play next!`;
 		humanScore = 0;
 		computerScore = 0;
 		computerTotalScore.textContent = computerScore;
