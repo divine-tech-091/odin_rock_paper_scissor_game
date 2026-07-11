@@ -1,74 +1,127 @@
-// playRound
-let humanScore = 0;
-let computerScore = 0;
-
-function playRound() {
-	// for (let round = 1; round <= 5; round++) {
-	//
+function getComputerChoice() {
 	let isChoice = ['rock', 'paper', 'scissors'];
 	let random = Math.floor(Math.random() * isChoice.length);
 	let computerSelection = isChoice[random];
+	return computerSelection;
+}
 
-	let humanSelection;
-	if (
-		humanSelection === 'rock' ||
-		humanSelection === 'Rock' ||
-		humanSelection === 'ROCK'
-	) {
-		humanSelection = 'rock';
-	}
+let humanScore = 0;
+let computerScore = 0;
+let round = 0;
 
-	if (
-		humanSelection === 'paper' ||
-		humanSelection === 'Paper' ||
-		humanSelection === 'PAPER'
-	) {
-		humanSelection = 'paper';
-	}
+const rock = document.querySelector('#rock');
+const paper = document.querySelector('#paper');
+const scissor = document.querySelector('#scissors');
+const displayText = document.querySelector('#displayText');
+const computerTotalScore = document.querySelector('.computerScore');
+const humanTotalScore = document.querySelector('.humanScore');
+const showWinner = document.querySelector('.declareTxt');
 
-	if (
-		humanSelection === 'scissors' ||
-		humanSelection === 'Scissors' ||
-		humanSelection === 'SCISSORS'
-	) {
-		humanSelection = 'scissors';
-	}
+showWinner.textContent = 'Start Game';
 
-	// console.log(
-	// 	`Round ${round} You choose ${humanSelection}, computer choose ${computerSelection}`,
-	// );
+function playRound() {
+	rock.addEventListener('click', function (event) {
+		let computerSelection = getComputerChoice();
+		round++;
+		if (round === 5) {
+			return totalRound();
+		}
+		if (event.target.id === 'rock' && computerSelection === 'rock') {
+			showWinner.textContent = `It's tie`;
+			return;
+		} else if (event.target.id === 'rock' && computerSelection === 'scissors') {
+			showWinner.textContent = `You win! rock beats ${computerSelection}`;
+			humanScore++;
+			humanTotalScore.textContent = humanScore;
+			return;
+		} else {
+			showWinner.textContent = `computer win! ${computerSelection} beats rock`;
+			computerScore++;
+			computerTotalScore.textContent = computerScore;
+			return;
+		}
+	});
 
-	if (humanSelection === computerSelection) {
-		console.log(`It's a tie!`);
-	} else if (
-		(humanSelection === 'rock' && computerSelection === 'scissors') ||
-		(humanSelection === 'paper' && computerSelection === 'rock') ||
-		(humanSelection === 'scissors' && computerSelection === 'paper')
-	) {
-		console.log(
-			`You win! this round. ${humanSelection} beats ${computerSelection}`,
-		);
-		humanScore++;
-	} else {
-		console.log(
-			`Computer win! this round. ${computerSelection}  beats ${humanSelection}`,
-		);
-		computerScore++;
-	}
+	paper.addEventListener('click', function (event) {
+		let computerSelection = getComputerChoice();
+		round++;
+		if (round === 5) {
+			return totalRound();
+		}
+		if (event.target.id === 'paper' && computerSelection === 'paper') {
+			showWinner.textContent = `It's tie`;
+			return;
+		} else if (event.target.id === 'paper' && computerSelection === 'rock') {
+			showWinner.textContent = `You win! paper beats ${computerSelection}`;
+			humanScore++;
+			humanTotalScore.textContent = humanScore;
+			return;
+		} else {
+			showWinner.textContent = `computer win! ${computerSelection} beats paper`;
+			computerScore++;
+			computerTotalScore.textContent = computerScore;
+			return;
+		}
+	});
 
-	console.log(
-		`human score : ${humanScore} | computer score : ${computerScore}`,
-	);
-	if (humanScore > computerScore) {
-		console.log(`Congratulations! You are overall winner`);
-	} else if (computerScore > humanScore) {
-		console.log(`computer wins the game, try hard next time`);
-	} else {
-		console.log(`Draw game`);
-	}
-	// }
+	scissor.addEventListener('click', function (event) {
+		let computerSelection = getComputerChoice();
+		round++;
+		if (round === 5) {
+			return totalRound();
+		}
+		if (event.target.id === 'scissors' && computerSelection === 'scissors') {
+			showWinner.textContent = `It's tie`;
+			return;
+		} else if (
+			event.target.id === 'scissors' &&
+			computerSelection === 'paper'
+		) {
+			showWinner.textContent = `You win! scissors beats ${computerSelection}`;
+			humanScore++;
+			humanTotalScore.textContent = humanScore;
+			return;
+		} else {
+			showWinner.textContent = `computer win! ${computerSelection} beats scissors`;
+			computerScore++;
+			computerTotalScore.textContent = computerScore;
+
+			return;
+		}
+	});
 }
 playRound();
+function calcScore() {
+	if (humanScore > computerScore) {
+		showWinner.textContent = `congrats! You're the overall winner! Your score : ${humanScore} | Computer score : ${computerScore}`;
+		humanScore = 0;
+		computerScore = 0;
+		humanTotalScore.textContent = humanScore;
+		computerTotalScore.textContent = computerScore;
+		round = 0;
+		return;
+	} else if (computerScore > humanScore) {
+		showWinner.textContent = `computer won! try again next time. Your score : ${humanScore} | Computer score : ${computerScore}`;
+		humanScore = 0;
+		computerScore = 0;
+		computerTotalScore.textContent = computerScore;
+		humanTotalScore.textContent = humanScore;
+		round = 0;
+		return;
+	} else {
+		showWinner.textContent = `Draw Game! play again.Your score ${humanScore} | Computer score ${computerScore}`;
+		humanScore = 0;
+		computerScore = 0;
+		humanTotalScore.textContent = humanScore;
+		computerTotalScore.textContent = computerScore;
+		round = 0;
+		return;
+	}
+}
 
-// function playGame(play) {}
-// playGame();
+function totalRound() {
+	if (round === 5) {
+		return calcScore();
+	}
+	return playRound();
+}
